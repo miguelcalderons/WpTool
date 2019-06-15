@@ -1,11 +1,11 @@
 <?php
 
-//require_once plugin_dir_path( __FILE__ ) . 'tools.php';
+require_once plugin_dir_path( __FILE__ ) . 'tools.php';
 
 
 Class register {
 
-    const WP_CUSTOM = 'wp_custom';
+    const WP_CUSTOM = 'wp_custom_';
     var $lastLang = 'en';
     public function add_dependencies()
     {
@@ -45,19 +45,6 @@ Class register {
             }
         }
 
-        // Intercept facebook leads email activation
-        if (!empty($_REQUEST['utm_medium']) && $_REQUEST['utm_medium'] =='leads'
-            && !empty($_REQUEST['utm_source']) && $_REQUEST['utm_source'] =='facebook')
-            $attributes['prefill'] = [
-                'email' => sanitize_text_field($_REQUEST['e'] ?? ''),
-                'email_verify' => sanitize_text_field($_REQUEST['ev'] ?? ''),
-                'password' => sanitize_text_field($_REQUEST['p'] ?? ''),
-                'password_verify' => sanitize_text_field($_REQUEST['pv'] ?? ''),
-                'first_name' => sanitize_text_field($_REQUEST['fn'] ?? ''),
-                'last_name' => sanitize_text_field($_REQUEST['ln'] ?? ''),
-                'custom' => sanitize_text_field($_REQUEST['c'] ?? ''),
-            ];
-
         return tools::get_template_html( 'register_form', $attributes );
     }
 
@@ -72,7 +59,7 @@ Class register {
         }
     }
 
-    public function do_register_user() {
+    public static function do_register_user() {
         if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
             $redirect_url = home_url( 'register' );
             if ( ! get_option( 'users_can_register' ) ) {
@@ -83,10 +70,9 @@ Class register {
                 $first_name = sanitize_text_field( $_POST['first_name'] );
                 $last_name = sanitize_text_field( $_POST['last_name'] );
                 $password = sanitize_text_field( $_POST['password'] );
-                $country = sanitize_text_field( $_POST['country'] );
                 $custom = sanitize_text_field( $_POST['custom'] );
-                $result = $this->register_user( $email, $first_name, $last_name, $password, $country);
-                error_log(print_r($result, true));
+                $result = register_user( $email, $first_name, $last_name, $password, $custom);
+
                 if ( is_wp_error( $result[0] ) ) {
                     // Parse errors into a string and append as parameter to redirect
                     $errors = join( ',', $result[0]->get_error_codes() );
@@ -127,28 +113,19 @@ Class register {
         );
         $user_id = wp_insert_user( $user_data );
 
-        if ($confirmed)
-            AdeccoCandidateModel::activateUser($user_id);
-
-        update_user_meta( $user_id, self::WP_CUSTOM . 'custom' , $custom );
-
-        // if the user is confirmed already, don't send out notification email
-        if (!$confirmed)
-            wp_new_user_notification($user_id, null, 'user');
-        else
-            AdeccoCandidateModel::loginAs($user_id); // autologin if confirmed ;)
-
-
         return $user_id;
     }
 
     public static function crf_user_register( $user_id ) {
-        if ( !current_user_can( 'edit_user', $user_id ) ) {
+        printf("test: %s", $user_id);
+        if ( !user_can($user_id, 'administrator' ) ) {
             return false;
         }
         if(!empty($_POST['custom'])) {
             update_user_meta( $user_id, self::WP_CUSTOM . 'custom', $_POST['custom'] );
         }
+
+        return true;
 
     }
 
