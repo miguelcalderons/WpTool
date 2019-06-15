@@ -12,11 +12,16 @@ class registerTest extends WP_UnitTestCase {
 
     protected $user;
 
-    public function test_createUser() {
+    public function test_register() {
+        $_POST = [
+            'email' => 'test@test.com',
+            'first_name' => 'Jose',
+            'last_name' => 'Perez',
+            'password' => 'password',
+            'custom' => 'custom'
+        ];
         $this->user = Register::register_user('test@test.com', 'Jose', 'Perez', 'password', 'custom');
-        $this->assertIsInt($this->user);
-
-        return "this: " . $this->user;
+        $this->assertNotNull($this->user);
     }
 
     public function test_True_crf_user_register() {
