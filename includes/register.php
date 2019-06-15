@@ -2,7 +2,6 @@
 
 require_once plugin_dir_path( __FILE__ ) . 'tools.php';
 
-
 Class register {
 
     const WP_CUSTOM = 'wp_custom_';
@@ -20,7 +19,7 @@ Class register {
     }
 
     public function render_register_form( $attributes, $content = null ) {
-
+        error_log("tt");
         // Parse shortcode attributes
         $default_attributes = array( 'show_title' => false );
         $attributes = shortcode_atts( $default_attributes, $attributes );
@@ -71,7 +70,7 @@ Class register {
                 $last_name = sanitize_text_field( $_POST['last_name'] );
                 $password = sanitize_text_field( $_POST['password'] );
                 $custom = sanitize_text_field( $_POST['custom'] );
-                $result = register_user( $email, $first_name, $last_name, $password, $custom);
+                $result = Register::register_user( $email, $first_name, $last_name, $password, $custom);
 
                 if ( is_wp_error( $result[0] ) ) {
                     // Parse errors into a string and append as parameter to redirect
