@@ -11,6 +11,15 @@
 require_once plugin_dir_path( __FILE__ ) . '/includes/register.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/login.php';
 
+function enqueueAssets() { 
+  wp_register_script( 'custom-js', plugins_url( '/js/custom.js' , __FILE__ ), '', null,''  ); 
+  wp_register_style( 'custom-css', plugins_url( '/css/style.css' , __FILE__ ),'','', 'screen' );
+  wp_enqueue_script( 'custom-js' );
+  wp_enqueue_style( 'custom-css' );
+}
+
+add_action( 'wp_enqueue_scripts', 'enqueueAssets' );
+
 class WpTool {
 
     /**
