@@ -130,11 +130,11 @@ Class register {
 
     function crf_show_extra_profile_fields( $user ) {
         ?>
-        <h3><?php esc_html_e( 'Application Information', 'Adecco_Login_Plugin' ); ?></h3>
+        <h3><?php esc_html_e( 'Application Information', 'wptool' ); ?></h3>
 
         <table class="form-table">
             <tr>
-                <th><label for="custom"><?php esc_html_e( 'custom', 'Adecco_Login_Plugin' ); ?></label></th>
+                <th><label for="custom"><?php esc_html_e( 'custom', 'wptool' ); ?></label></th>
                 <td><input type="text" id="custom" name="custom"  value="<?php echo esc_html( get_the_author_meta( self::WP_CUSTOM . 'custom', $user->ID ) ); ?>" /></td>
             </tr>
         </table>
