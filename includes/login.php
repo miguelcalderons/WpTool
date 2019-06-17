@@ -17,7 +17,7 @@ Class login {
         $show_title = $attributes['show_title'];
 
         if ( is_user_logged_in() ) {
-            return __( 'You are already signed in.', 'Adecco_Login_Plugin' );
+            return __( 'You are already signed in.', 'wptool' );
         }
 
         // Check if user just updated password
@@ -89,46 +89,18 @@ Class login {
     }
 
     function maybe_redirect_at_authenticate( $user, $username, $password ) {
-        // Check if the earlier authenticate filter (most likely,
-        // the default WordPress authentication) functions have found errors
-
-        $validate = tools::decorator_validate_credentials($username, $password);
-        $status = $validate->status;
-        $userid = $validate->userid;
-        $retrieve = tools::decorator_retrieve_user($userid);
-        $userInfo = $retrieve->data;
-        $birth = date("d-m-Y", strtotime($userInfo->birhday));
         if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-            if(!username_exists($username)) {
-                if($status == 0) {
-                    $registerTry = register::register_user($username, $password, $userInfo->id, $userInfo->name, $userInfo->surname, $userInfo->email, $birth, $userInfo->gender, $userInfo->mobile, $userInfo->phone, $userInfo->adress, $userInfo->adress_no, $userInfo->city, $userInfo->zip, $userInfo->local_area);
-                    $user = get_userdata($registerTry);
-                }
-                $userAdmin = false;
-            } else {
-                $userAdmin = user_can($user, 'administrator');
-            }
-            if ($status != 0 && !$userAdmin) {
-                $error_codes = 'apiError';
-
-                $login_url = home_url();
-                $login_url = add_query_arg( 'login', $error_codes, $login_url );
-
-                wp_redirect( $login_url );
-                exit;
-            } 
-
             if ( is_wp_error( $user ) ) {
                 $error_codes = join( ',', $user->get_error_codes() );
-
-                $login_url = home_url( );
+     
+                $login_url = home_url( 'login' );
                 $login_url = add_query_arg( 'login', $error_codes, $login_url );
-
+     
                 wp_redirect( $login_url );
                 exit;
             }
         }
-
+     
         return $user;
     }
 

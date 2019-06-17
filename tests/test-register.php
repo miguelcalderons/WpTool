@@ -21,10 +21,6 @@ class registerTest extends WP_UnitTestCase {
             'custom' => 'custom'
         ];
         $this->user = Register::register_user('test@test.com', 'Jose', 'Perez', 'password', 'custom');
-        $this->assertNotNull(render_register_form());
-    }
-
-    public function test_renderRegister() {
         $this->assertNotNull($this->user);
     }
 

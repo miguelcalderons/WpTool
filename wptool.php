@@ -9,6 +9,7 @@
  */
 
 require_once plugin_dir_path( __FILE__ ) . '/includes/register.php';
+require_once plugin_dir_path( __FILE__ ) . '/includes/login.php';
 
 class WpTool {
 
@@ -25,8 +26,9 @@ class WpTool {
         //$login->add_dependencies();
         $register = new register();
         $register->add_dependencies();
+        $login = new login();
+        $login->add_dependencies();
         
-
         add_filter('query_vars', [$this, 'addQueryVars']);
         add_action( 'template_redirect', [$this, 'actionIntercept'] );
     }
@@ -41,23 +43,23 @@ public static function plugin_activated() {
     // Information needed for creating the plugin's pages
     $page_definitions = array(
       'user-profile' => array(
-        'title' => __( 'Your Account', 'Adecco_Login_Plugin' ),
+        'title' => __( 'Your Account', 'wptool' ),
         'content' => '[account-info]'
       ),
       'register' => array(
-        'title' => __( 'Register', 'Adecco_Login_Plugin' ),
+        'title' => __( 'Register', 'wptool' ),
         'content' => '[custom-register-form]'
       ),
       'profile' => array(
-        'title' => __( 'Profile Information', 'Adecco_Login_Plugin' ),
+        'title' => __( 'Profile Information', 'wptool' ),
         'content' => '[custom-profile-form]'
       ),
       'member-password-lost' => array(
-        'title' => __( 'Forgot Your Password?', 'Adecco_Login_Plugin' ),
+        'title' => __( 'Forgot Your Password?', 'wptool' ),
         'content' => '[custom-password-lost-form]'
       ),
       'member-password-reset' => array(
-        'title' => __( 'Pick a New Password', 'Adecco_Login_Plugin' ),
+        'title' => __( 'Pick a New Password', 'wptool' ),
         'content' => '[custom-password-reset-form]'
       )
     );
