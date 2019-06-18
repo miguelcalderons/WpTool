@@ -1,6 +1,5 @@
 <?php
 
-
 class tools {
 
     public static function get_template_html( $template_name, $attributes = null ) {

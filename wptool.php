@@ -10,9 +10,10 @@
 
 require_once plugin_dir_path( __FILE__ ) . '/includes/register.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/login.php';
+require_once plugin_dir_path( __FILE__ ) . '/includes/menu.php';
 
 function enqueueAssets() { 
-  wp_register_script( 'custom-js', plugins_url( '/js/custom.js' , __FILE__ ), '', null,''  ); 
+  wp_register_script( 'custom-js', plugins_url( '/js/custom.js' , __FILE__), array( 'jquery' )); 
   wp_register_style( 'custom-css', plugins_url( '/css/style.css' , __FILE__ ),'','', 'screen' );
   wp_enqueue_script( 'custom-js' );
   wp_enqueue_style( 'custom-css' );
@@ -37,6 +38,8 @@ class WpTool {
         $register->add_dependencies();
         $login = new login();
         $login->add_dependencies();
+        $menu = new menu();
+        $menu->add_dependencies();
         
         add_filter('query_vars', [$this, 'addQueryVars']);
         add_action( 'template_redirect', [$this, 'actionIntercept'] );
