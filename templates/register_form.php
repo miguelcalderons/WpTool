@@ -132,4 +132,5 @@
         confirm_password.onkeyup = validatePassword;
         confirm_email.onkeyup = validateEmail;
     });
+    </script>
 </div>
