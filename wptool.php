@@ -11,10 +11,19 @@
 require_once plugin_dir_path( __FILE__ ) . '/includes/register.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/login.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/menu.php';
+require_once plugin_dir_path( __FILE__ ) . '/includes/footer.php';
 
 function enqueueAssets() { 
+  wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', null, null, true );
+  wp_enqueue_script('jQuery');
+  wp_enqueue_script( 'popper_js', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', 
+  					array(), 
+  					'1.14.3', 
+  					true); 
   wp_register_script( 'custom-js', plugins_url( '/js/custom.js' , __FILE__), array( 'jquery' )); 
   wp_register_style( 'custom-css', plugins_url( '/css/style.css' , __FILE__ ),'','', 'screen' );
+  wp_enqueue_style( 'bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', array());
+  wp_enqueue_script( 'bootstrap_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js',	array('jquery'), '4.1.3', true);  
   wp_enqueue_script( 'custom-js' );
   wp_enqueue_style( 'custom-css' );
 }
@@ -32,14 +41,14 @@ class WpTool {
 
 
     public function __construct() {
-        //$login = new login();
-        //$login->add_dependencies();
         $register = new register();
         $register->add_dependencies();
         $login = new login();
         $login->add_dependencies();
         $menu = new menu();
         $menu->add_dependencies();
+        $footer = new footer();
+        $footer->add_dependencies();
         
         add_filter('query_vars', [$this, 'addQueryVars']);
         add_action( 'template_redirect', [$this, 'actionIntercept'] );
