@@ -5,3 +5,96 @@ html {
     }
 }
 
+
+.sidenav {
+    height: 100%;
+    width: 325px;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    right: -100%;
+    background-color: rgba(6, 4, 6, 0.8);
+    overflow-x: hidden;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    padding-top: 90px;
+    padding-left: 0px;
+    overflow: hidden; 
+  }
+
+  .menuHeader {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  .menuHeader li {
+    list-style: none;
+  }
+
+  .menuHeader li a {
+    color: #fff;
+  }
+
+  #menu-icon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 45px;
+    right: 50px;
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+    -webkit-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+    z-index: 9999; 
+  }
+
+  #menu-icon span {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out; }
+    #menu-icon span:nth-child(1) {
+      top: 0px;
+      -webkit-transform-origin: left center;
+      transform-origin: left center; }
+    #menu-icon span:nth-child(2) {
+      top: 8.33px;
+      -webkit-transform-origin: left center;
+      transform-origin: left center; }
+      @media screen and (max-width: 415px) {
+        #menu-icon span:nth-child(2) {
+          top: 7px !important; } }
+    #menu-icon span:nth-child(3) {
+      top: 16.66px;
+      -webkit-transform-origin: left center;
+      transform-origin: left center; }
+      @media screen and (max-width: 415px) {
+        #menu-icon span:nth-child(3) {
+          top: 14px !important; } }
+  #menu-icon.open span:nth-child(1) {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    top: 0px;
+    left: 3px; }
+  #menu-icon.open span:nth-child(2) {
+    width: 0%;
+    opacity: 0; }
+  #menu-icon.open span:nth-child(3) {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    top: 17px;
+    left: 3px; }
+
+/* Icon 4 */
+.sidebarNav {
+  right: 0px;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease; }

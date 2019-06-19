@@ -1,26 +1,3 @@
-// Defining requirements
-var gulp = require( 'gulp' );
-var plumber = require( 'gulp-plumber' );
-var sass = require( 'gulp-sass' );
-var watch = require( 'gulp-watch' );
-var cssnano = require( 'gulp-cssnano' );
-var rename = require( 'gulp-rename' );
-var concat = require( 'gulp-concat' );
-var uglify = require( 'gulp-uglify' );
-var merge2 = require( 'merge2' );
-var imagemin = require( 'gulp-imagemin' );
-var ignore = require( 'gulp-ignore' );
-var rimraf = require( 'gulp-rimraf' );
-var clone = require( 'gulp-clone' );
-var merge = require( 'gulp-merge' );
-var sourcemaps = require( 'gulp-sourcemaps' );
-var browserSync = require( 'browser-sync' ).create();
-var del = require( 'del' );
-var cleanCSS = require( 'gulp-clean-css' );
-var gulpSequence = require( 'gulp-sequence' );
-var replace = require( 'gulp-replace' );
-var autoprefixer = require( 'gulp-autoprefixer' );
-
 // Configuration file to keep your code DRY
 var cfg = require( './gulpconfig.json' );
 var paths = cfg.paths;
@@ -237,3 +214,43 @@ gulp.task( 'clean-dist-product', function() {
 // gulp
 // Starts watcher (default task)
 gulp.task('default', ['watch']);
+// Gulp.js configuration
+'use strict';
+
+const
+
+  // source and build folders
+  dir = {
+    src         : 'src/',
+    build       : '.'
+  },
+
+  // Gulp and plugins
+  gulp          = require('gulp'),
+  gutil         = require('gulp-util'),
+  newer         = require('gulp-newer'),
+  imagemin      = require('gulp-imagemin'),
+  sass          = require('gulp-sass'),
+  postcss       = require('gulp-postcss'),
+  deporder      = require('gulp-deporder'),
+  concat        = require('gulp-concat'),
+  stripdebug    = require('gulp-strip-debug'),
+  uglify        = require('gulp-uglify')
+;
+
+// Browser-sync
+var browsersync = false;
+
+
+// PHP settings
+const php = {
+  src           : dir.src + 'template/**/*.php',
+  build         : dir.build
+};
+
+// copy PHP files
+gulp.task('php', () => {
+  return gulp.src(php.src)
+    .pipe(newer(php.build))
+    .pipe(gulp.dest(php.build));
+});

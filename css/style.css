@@ -97,3 +97,23 @@ html {
   right: 0px;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease; }
+
+  .footerTool {
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    background-color: #000;
+    padding: 25px;
+  }
+
+  .site-footer {
+    display: none;
+  }
+
+  .textFooter {
+    color: #fff;
+  }
+
+  .textFooter h2 {
+    color: #fff;
+  }

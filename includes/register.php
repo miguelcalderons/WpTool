@@ -78,7 +78,7 @@ Class register {
                     $redirect_url = add_query_arg(array( 'register-errors' => $errors), $redirect_url );
                 } else {
                     // Success, redirect to login or application form page
-                    $redirect_url = home_url( 'register' );
+                    $redirect_url = home_url( 'login' );
                     $redirect_url = add_query_arg(array( 'registered' => $email), $redirect_url );
                     
                 }
