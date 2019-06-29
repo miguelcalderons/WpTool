@@ -12,6 +12,8 @@ require_once plugin_dir_path( __FILE__ ) . '/includes/register.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/login.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/menu.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/footer.php';
+require_once plugin_dir_path( __FILE__ ) . '/includes/user.php';
+
 
 function enqueueAssets() { 
   wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js', null, null, true );
