@@ -51,6 +51,7 @@ class WpTool {
         $menu->add_dependencies();
         $footer = new footer();
         $footer->add_dependencies();
+        User::init();
         
         add_filter('query_vars', [$this, 'addQueryVars']);
         add_action( 'template_redirect', [$this, 'actionIntercept'] );
