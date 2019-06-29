@@ -37,8 +37,4 @@ class UserTest extends WP_Ajax_UnitTestCase {
     public function testOptionDropDown() {
         $this->assertNotNull(User::getOptionFromConstant('LANGUAGES'));
     }
-
-    public function testAlluserAjax() {
-        $this->assertNotNull(User::ajaxAllUsers());
-    }
 }
