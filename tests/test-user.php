@@ -8,7 +8,7 @@
 /**
  * User test case.
  */
-class UserTest extends WP_UnitTestCase {
+class UserTest extends WP_Ajax_UnitTestCase {
 
 	/**
 	 * A single example test.
@@ -36,5 +36,9 @@ class UserTest extends WP_UnitTestCase {
 
     public function testOptionDropDown() {
         $this->assertNotNull(User::getOptionFromConstant('LANGUAGES'));
+    }
+
+    public function testAlluserAjax() {
+        $this->assertNotNull(User::ajaxAllUsers());
     }
 }

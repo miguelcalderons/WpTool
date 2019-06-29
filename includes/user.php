@@ -107,6 +107,21 @@ class User {
         "Sales & Marketing",                
     ];
 
+    public static function init() {
+        add_action('wp_ajax_getAllUsers', [self::class, 'ajaxAllUsers']);
+    }
+
+    public static function ajaxAllUsers() {
+        $users = get_users( array( 'fields' => array( 'display_name' ) ) );
+        error_log('user: ' . print_r($users, true));
+        if(!empty($users)) {
+            return wp_send_json_success($users);
+        } else {
+            return wp_send_json_error('Not users');
+        }
+        
+    }
+
     public static function currentIpCountry()
     {
         $real_ip_adress = false;
