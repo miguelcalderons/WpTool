@@ -6,10 +6,10 @@
         public function add_dependencies()
         {
             add_action( 'widgets_init',array( $this, 'wptool_widgets_init' ));
-            add_action( 'wp_footer', array( $this, 'render_sidebar_menu' ));
+            add_action( 'wp_footer', array( $this, 'render_footer' ));
         }
 
-        public function render_sidebar_menu() {    
+        public function render_footer() {    
             echo tools::get_template_html( 'footer', $attributes = null );
         }
         function wptool_widgets_init() {

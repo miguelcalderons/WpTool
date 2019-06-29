@@ -94,7 +94,7 @@ class User {
         'Complete + CV',
     ];
 
-    public const  FOW = [
+    public const  WORKFIELD = [
         "Accounting & Finance",             
         "Banking & Finance Services",       
         "Education",                        
