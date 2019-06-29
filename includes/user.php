@@ -127,8 +127,79 @@ class User {
                 return 'Not found';
             }
         }
-
         return false;
     }
+
+    public static function getUserProfile($user_id)
+    {
+        $user = get_user_by('id', $user_id);
+        if (empty($user))
+            return null;
+
+        // send out user profile ;)
+        return [
+            'id' => $user->ID,
+            'display_name' => $user->display_name,
+            'firstName' => $user->first_name,
+            'lastName' => $user->last_name,
+            'registered' => $user->user_registered,
+            'email' => $user->user_email,
+            'custom' => static::getMetadata('custom', $user_id),
+        ];
+    }
+
+    public static function getMetadata($key, $user_id = null, $single = true)
+    {
+        if (empty($user_id) && !is_user_logged_in())
+            return false;
+
+            $value = get_user_meta($user_id ?? get_current_user_id(), Register::WP_CUSTOM . $key, $single);
+
+        return !empty($value) ? $value : null;
+    }
+
+    public static function updateMetadata($key, $user_id = null, $value)
+    {
+        if (empty($user_id) && !is_user_logged_in())
+            return false;
+
+            $value = update_user_meta($user_id ?? get_current_user_id(), Register::WP_CUSTOM . $key, $value);
+
+        return $value;
+    }
+
+    public static function getEmails($users) {
+        foreach ($users as $user) {
+            $email[] = $user->user_email;
+        }
+
+        return $email;
+    }
+
+    public static function getIds($users) {
+        foreach ($users as $user) {
+            $Ids[] = $user->ID;
+        }
+
+        return $Ids;
+    }
+
+    public static function getIdsFromMail($emails) {
+        foreach ($emails as $email) {
+            $id = get_user_by( 'email', $email)->ID;
+            if(!empty($id)) {
+                $ids[] = $id;
+            }
+        }
+        return $ids;
+    }
+
+    public static function DaysFrom($date) {
+        
+        return sprintf( _x( '%s ago', '%s = human-readable time difference', 'wptool'),
+                            human_time_diff( (new \Datetime($date))->getTimestamp() )
+                        );
+
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 
 }

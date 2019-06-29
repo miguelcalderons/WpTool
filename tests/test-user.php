@@ -21,4 +21,18 @@ class UserTest extends WP_UnitTestCase {
     public function testCountryByIp() {
         $this->assertNotNull(User::currentIpCountry());
     }
+
+    public function testGetProfileData() {
+        $user = User::getUserProfile(1);
+        $this->assertNotNull($user);
+        $this->assertNotNull($user['email']);
+    }
+
+    public function testUpdateCustomMeta() {
+        User::updateMetadata('custom', 1, 'value');
+        $meta = User::getMetadata('custom',1, true);
+        $this->assertEquals('value', $meta);
+    }
+
+    
 }
