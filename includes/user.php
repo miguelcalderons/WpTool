@@ -107,4 +107,28 @@ class User {
         "Sales & Marketing",                
     ];
 
+    public static function currentIpCountry()
+    {
+        $real_ip_adress = false;
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $real_ip_adress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            $real_ip_adress = $_SERVER['HTTP_CLIENT_IP'];
+        } else if (isset($_SERVER['REMOTE_ADDR'])) {
+            $real_ip_adress = $_SERVER['REMOTE_ADDR'];
+        }
+        if ($real_ip_adress) {
+            $location = json_decode(file_get_contents('https://www.iplocate.io/api/lookup/' . $real_ip_adress));
+            if (!empty($location) && empty($location->country)) {
+                return 'LocalHost';
+            } else if (!empty($location) && !empty($location->country)) {
+                return $location->country;
+            } else {
+                return 'Not found';
+            }
+        }
+
+        return false;
+    }
+
 }

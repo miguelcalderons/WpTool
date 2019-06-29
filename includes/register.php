@@ -19,7 +19,7 @@ Class register {
     }
 
     public function render_register_form( $attributes, $content = null ) {
-        error_log("tt");
+        
         // Parse shortcode attributes
         $default_attributes = array( 'show_title' => false );
         $attributes = shortcode_atts( $default_attributes, $attributes );

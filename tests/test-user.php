@@ -17,4 +17,8 @@ class UserTest extends WP_UnitTestCase {
         // Replace this with some actual testing code.
         $this->assertIsArray(User::LANGUAGES);
     }
+
+    public function testCountryByIp() {
+        $this->assertNotNull(User::currentIpCountry());
+    }
 }

@@ -2,7 +2,7 @@
     <?php if ( $attributes['show_title'] ) : ?>
     <h3><?php _e( 'Register', 'wptool' ); ?></h3>
     <?php endif; ?>
-
+    <p><?php echo User::currentIpCountry(); ?></p>
     <form id="signupform" action="<?php echo wp_registration_url(); ?>" method="post">
         <?php if ( count( $attributes['errors'] ) > 0 ) : ?>
         <?php
