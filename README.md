@@ -1,15 +1,15 @@
 # WPTool
 
-##Requirements
+## Requirements
 
 - PHP 5.6 or ^7.0.0
 - WordPress ^5.0.0
 - Composer
 - NPM
 
-##Instalation
+## Instalation
 
-###Configure locally PHPUnit
+### Configure locally PHPUnit
 
 run this: `composer install` to install composer
 after, run this to configure the phpunit ` bin/install-wp-tests.sh dbName user password localhost latest`
