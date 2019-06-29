@@ -200,6 +200,20 @@ class User {
                             human_time_diff( (new \Datetime($date))->getTimestamp() )
                         );
 
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    }
+    
+    public static function getOptionFromConstant($constant) {
+        $optionString = '';
+        $constante = constant('self::'.$constant);
+        if(!empty($constante)) {
+            foreach($constante as $const) {
+                $optionString .= "<option value='" . $const ."'>" . $const ."</option>";
+            }
+            return $optionString;
+        } else {
+            return null;
+        }
+        
+    }
 
 }

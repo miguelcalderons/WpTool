@@ -34,5 +34,7 @@ class UserTest extends WP_UnitTestCase {
         $this->assertEquals('value', $meta);
     }
 
-    
+    public function testOptionDropDown() {
+        $this->assertNotNull(User::getOptionFromConstant('LANGUAGES'));
+    }
 }

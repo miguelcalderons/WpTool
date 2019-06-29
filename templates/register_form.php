@@ -62,10 +62,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-6">
                 <p class="form-row">
                 <input type="text" class="form-control" name="custom" id="custom" placeholder="<?php _e('Custom', 'wptool'); ?>"
                         tabindex="6" required>
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="form-row">
+                <select name="languages" class="form-control">
+                    <option default>Select Language</option>
+                    <?php echo User::getOptionFromConstant('LANGUAGES'); ?>
+                </select>
                 </p>
             </div>
 
