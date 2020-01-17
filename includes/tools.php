@@ -61,7 +61,7 @@ class tools {
                 return __( 'Registering new users is currently not allowed.', 'wptool' );
 
             case 'not_registered':
-                return __( 'You are not registered in detto fra noi, are you registered?.', 'wptool' );
+                return __( 'You are not registered.', 'wptool' );
 
             case 'captcha':
                 return __( 'The Google reCAPTCHA check failed. Are you a robot?', 'wptool' );

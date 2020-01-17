@@ -125,7 +125,7 @@ Class login {
                 exit;
             }
      
-            wp_redirect( home_url( 'member-password-lost' ) );
+            wp_redirect( home_url( 'forgot-password' ) );
             exit;
         }
     }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       WP Tools
- * Description:       A plugin to add register form with shortcode and edit user.
+ * Description:       Wordpress developer-focused plugin.
  * Version:           1.0.0
  * License:           GPL-2.0+
  * Author:            Miguel Calderón
@@ -31,7 +31,6 @@ function enqueueAssets() {
 }
 
 add_action( 'wp_enqueue_scripts', 'enqueueAssets' );
-
 class WpTool {
 
     /**
@@ -63,46 +62,38 @@ class WpTool {
         return $qvars;
     }
 
-public static function plugin_activated() {
-    // Information needed for creating the plugin's pages
-    $page_definitions = array(
-      'user-profile' => array(
-        'title' => __( 'Your Account', 'wptool' ),
-        'content' => '[account-info]'
-      ),
-      'register' => array(
-        'title' => __( 'Register', 'wptool' ),
-        'content' => '[custom-register-form]'
-      ),
-      'profile' => array(
-        'title' => __( 'Profile Information', 'wptool' ),
-        'content' => '[custom-profile-form]'
-      ),
-      'member-password-lost' => array(
-        'title' => __( 'Forgot Your Password?', 'wptool' ),
-        'content' => '[custom-password-lost-form]'
-      ),
-      'member-password-reset' => array(
-        'title' => __( 'Pick a New Password', 'wptool' ),
-        'content' => '[custom-password-reset-form]'
-      )
-    );
+    public static function plugin_activated() {
+        // Information needed for creating the plugin's pages
+        $page_definitions = array(
+          'register' => array(
+            'title' => __( 'Register', 'wptool' ),
+            'content' => '[custom-register-form]'
+          ),
+          'login' => array(
+              'title' => __( 'Login', 'wptool' ),
+              'content' => '[custom-login-form]'
+          ),
+          'forgot-password' => array(
+            'title' => __( 'Forgot Your Password?', 'wptool' ),
+            'content' => '[custom-password-lost-form]'
+          )
+        );
 
-    foreach ( $page_definitions as $slug => $page ) {
+        foreach ( $page_definitions as $slug => $page ) {
             // Check that the page doesn't exist already
             $query = new WP_Query( 'pagename=' . $slug );
             if ( ! $query->have_posts() ) {
                 // Add the page using the data from the array above
                 wp_insert_post(
-                array(
-                    'post_content'   => $page['content'],
-                    'post_name'      => $slug,
-                    'post_title'     => $page['title'],
-                    'post_status'    => 'publish',
-                    'post_type'      => 'page',
-                    'ping_status'    => 'closed',
-                    'comment_status' => 'closed',
-                )
+                    array(
+                        'post_content'   => $page['content'],
+                        'post_name'      => $slug,
+                        'post_title'     => $page['title'],
+                        'post_status'    => 'publish',
+                        'post_type'      => 'page',
+                        'ping_status'    => 'closed',
+                        'comment_status' => 'closed',
+                    )
                 );
             }
         }
@@ -111,5 +102,6 @@ public static function plugin_activated() {
 
 // Initialize the plugin
 $WPTool = new WpTool();
-
+// Create the custom pages at plugin activation
+register_activation_hook( __FILE__, array( 'WpTool', 'plugin_activated' ) );
 require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';

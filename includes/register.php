@@ -70,7 +70,8 @@ Class register {
                 $last_name = sanitize_text_field( $_POST['last_name'] );
                 $password = sanitize_text_field( $_POST['password'] );
                 $custom = sanitize_text_field( $_POST['custom'] );
-                $result = Register::register_user( $email, $first_name, $last_name, $password, $custom);
+                $languages = sanitize_text_field( $_POST['languages']);
+                $result = Register::register_user( $email, $first_name, $last_name, $password, $custom, $languages);
 
                 if ( is_wp_error( $result[0] ) ) {
                     // Parse errors into a string and append as parameter to redirect
@@ -89,7 +90,7 @@ Class register {
         }
     }
 
-    public static function register_user($email, $first_name, $last_name, $password, $custom) {
+    public static function register_user($email, $first_name, $last_name, $password, $custom, $languages) {
         $errors = new WP_Error();
         // Email address is used as both username and email. It is also the only
         // parameter we need to validate
@@ -108,20 +109,26 @@ Class register {
             'first_name'    => $first_name,
             'last_name'     => $last_name,
             'nickname'      => $first_name,
-            self::WP_CUSTOM . 'custom'=> $custom
         );
         $user_id = wp_insert_user( $user_data );
 
+        if(!empty($user_id)) {
+            User::updateMetadata('custom', $user_id, $custom);
+            User::updateMetadata('languages', $user_id, $languages);
+        }
         return $user_id;
     }
 
     public static function crf_user_register( $user_id ) {
         printf("test: %s", $user_id);
-        if ( !user_can($user_id, 'administrator' ) ) {
+        if ( !user_can(get_current_user_id(), 'administrator' ) ) {
             return false;
         }
         if(!empty($_POST['custom'])) {
-            update_user_meta( $user_id, self::WP_CUSTOM . 'custom', $_POST['custom'] );
+            User::updateMetadata('custom', $user_id, $_POST['custom'] );
+        }
+        if(!empty($_POST['languages'])) {
+            User::updateMetadata('languages', $user_id, $_POST['languages'] );
         }
 
         return true;
@@ -135,7 +142,11 @@ Class register {
         <table class="form-table">
             <tr>
                 <th><label for="custom"><?php esc_html_e( 'custom', 'wptool' ); ?></label></th>
-                <td><input type="text" id="custom" name="custom"  value="<?php echo esc_html( get_the_author_meta( self::WP_CUSTOM . 'custom', $user->ID ) ); ?>" /></td>
+                <td><input type="text" id="custom" name="custom"  value="<?php echo esc_html( User::getMetadata(  'custom', $user->ID ) ); ?>" /></td>
+            </tr>
+            <tr>
+                <th><label for="languages"><?php esc_html_e( 'Languages', 'wptool' ); ?></label></th>
+                <td><input type="text" id="languages" name="languages"  value="<?php echo esc_html( User::getMetadata( 'languages', $user->ID ) ); ?>" /></td>
             </tr>
         </table>
         <?php

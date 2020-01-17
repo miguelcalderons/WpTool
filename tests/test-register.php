@@ -12,6 +12,11 @@ class registerTest extends WP_UnitTestCase {
 
     protected $user;
 
+    public function setUp() {
+        parent::setUp();
+        wp_set_current_user( 1 );
+    }
+
     public function test_register() {
         $_POST = [
             'email' => 'test@test.com',
@@ -20,7 +25,7 @@ class registerTest extends WP_UnitTestCase {
             'password' => 'password',
             'custom' => 'custom'
         ];
-        $this->user = Register::register_user('test@test.com', 'Jose', 'Perez', 'password', 'custom');
+        $this->user = Register::register_user('test@test.com', 'Jose', 'Perez', 'password', 'custom', 'Spanish');
         $this->assertNotNull($this->user);
     }
 
