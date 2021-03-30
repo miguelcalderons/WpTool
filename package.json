@@ -4,7 +4,6 @@
   "description": "WordPress Theme framework",
   "main": "index.js",
   "scripts": {
-    "postinstall": "gulp copy-assets",
     "gulp": "gulp"
   },
   "engines": {
@@ -29,10 +28,10 @@
   "homepage": "https://understrap.com",
   "devDependencies": {
     "autoprefixer": "^9.6.0",
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.14",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-deporder": "^1.1.0",
     "gulp-imagemin": "^6.0.0",
@@ -45,7 +44,7 @@
     "postcss-assets": "^5.0.0"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.17",
     "lodash.template": ">=4.5.0"
   }
 }
