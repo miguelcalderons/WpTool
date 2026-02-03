@@ -1,5 +1,5 @@
 {
-    "name": "sanmiguel",
+    "name": "sanmiguel/sanmiguel",
     "version": "1.0.0",
     "description": "San Miguel",
     "scripts": {
@@ -7,6 +7,6 @@
     },
         "license": "ISC",
         "require-dev": {
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^11.0"
     }
 }  
