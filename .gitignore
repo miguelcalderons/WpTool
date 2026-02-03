@@ -1,16 +1,72 @@
 # Dependency directories
 node_modules/
+vendor/
 
+# Package manager files
 .npm
+package-lock.json
+composer.lock
 
+# Logs
 *.log
 *.logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-/node_modules
-/public/storage
-/storage/*.key
-/vendor
+# IDE and editors
 /.idea
+/.vscode
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.project
+.settings/
+*.code-workspace
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Environment
+.env
+.env.local
+.env.*.local
 Homestead.json
 Homestead.yaml
-.env
+
+# Build/compiled output
+/dist
+/build
+*.min.css.map
+*.min.js.map
+
+# WordPress specific
+*.sql
+*.sql.gz
+/uploads
+/upgrade
+
+# PHP
+/storage/*.key
+/public/storage
+.phpunit.result.cache
+.php_cs.cache
+.php-cs-fixer.cache
+
+# Testing
+/coverage
+/.phpunit.cache
+
+# Misc
+*.bak
+*.backup
+*.tmp
+*.temp
